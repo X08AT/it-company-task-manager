@@ -10,11 +10,11 @@
   <header>
     <strong>IT Company Task Manager</strong>
     <nav>
-      <a href="#">Home</a>|
-      <a href="#">Tasks</a>|
-      <a href="#">Workers</a>|
-      <a href="#">Positions</a>|
-      <a href="#">Task Types</a>
+      <a href="{% url "tasks:index" %}">Home</a>|
+      <a href="{% url "tasks:task-list" %}">Tasks</a>|
+      <a href="{% url "tasks:worker-list" %}">Workers</a>|
+      <a href="{% url "tasks:position-list" %}">Positions</a>|
+      <a href="{% url "tasks:task-type-list" %}">Task Types</a>
     </nav>
   </header>
   <main>
