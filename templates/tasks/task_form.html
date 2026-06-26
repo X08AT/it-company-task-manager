@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}
+  {% if object %}Update{% else %}Create{% endif %} Task | Task Manager
+{% endblock %}
+{% block content %}
+  <h1>{% if object %}Update{% else %}Create{% endif %} Task</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+    <a href="{% url "tasks:task-list" %}">Cancel</a>
+  </form>
+{% endblock %}
