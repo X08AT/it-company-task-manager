@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from tasks.models import Task, Worker
 
 
-class TaskForm(forms.ModelForm):
+class TaskUpdateForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = "__all__"
@@ -12,6 +12,11 @@ class TaskForm(forms.ModelForm):
             "assignees": forms.CheckboxSelectMultiple(),
             "deadline": forms.DateInput(attrs={"type": "date"}),
         }
+
+
+class TaskCreateForm(TaskUpdateForm):
+    class Meta(TaskUpdateForm.Meta):
+        exclude = ["is_completed"]
 
 
 class WorkerForm(UserCreationForm):
