@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}
+  {% if object %}Update{% else %}Create{% endif %} Position | Task Manager
+{% endblock %}
+{% block content %}
+  <h1>{% if object %}Update{% else %}Create{% endif %} Position</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Save">
+  </form>
+  <p><a href="{% url "tasks:position-list" %}">Back to position list</a></p>
+{% endblock %}

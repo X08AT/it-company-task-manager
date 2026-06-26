@@ -2,7 +2,7 @@
 {% block title %}Positions | Task Manager{% endblock %}
 {% block content %}
   <h1>Positions</h1>
-  <p><a href="#">+ Create new position</a></p>
+  <p><a href="{% url "tasks:position-create" %}">+ Create new position</a></p>
   {% if position_list %}
     <table>
       <thead>
@@ -18,8 +18,8 @@
           <tr>
             <td>{{ position.name }}</td>
             <td>{{ position.num_workers }}</td>
-            <td><a href="#">Update</a></td>
-            <td><a href="#">Delete</a></td>
+            <td><a href="{% url "tasks:position-update" pk=position.id %}">Update</a></td>
+            <td><a href="{% url "tasks:position-delete" pk=position.id %}">Delete</a></td>
           </tr>
       {% endfor %}
       </tbody>
