@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Delete Worker | Task Manager{% endblock %}
+{% block content %}
+  <h1>Delete Worker {{ worker.username }} ?</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes, Delete">
+    <a href="{% url "tasks:worker-list" %}">Cancel</a>
+  </form>
+
+{% endblock %}

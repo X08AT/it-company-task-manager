@@ -2,11 +2,12 @@
 {% block title %}Workers | Task Manager{% endblock %}
 {% block content %}
   <h1>Workers</h1>
+  <p><a href="{% url "tasks:worker-create" %}">+ Create new Worker</a></p>
   {% if worker_list %}
     <div>
       {% for worker in worker_list %}
         <div>
-          <h2><a href="#">{{ worker.username }}</a></h2>
+          <h2><a href="{% url "tasks:worker-detail" pk=worker.id %}">{{ worker.username }}</a></h2>
 
           <p><b>Position:</b>
             {% if worker.position %}
@@ -19,11 +20,6 @@
           <p><b>First Name:</b> {{ worker.first_name }}</p>
           <p><b>Last Name:</b> {{ worker.last_name }}</p>
           <p><b>Email:</b> {{ worker.email }}</p>
-
-          <p>
-            <a href="#">Update</a>|
-            <a href="#">Delete</a>
-          </p>
         </div>
       {% endfor %}
     </div>
