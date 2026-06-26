@@ -126,7 +126,7 @@ class WorkerListView(generic.ListView):
     context_object_name = "worker_list"
 
     def get_queryset(self):
-        queryset = self.queryset
+        queryset = self.queryset.exclude(is_superuser=True)
         self.form = WorkerUsernameSearchForm(self.request.GET)
         if self.form.is_valid():
             username = self.form.cleaned_data.get("username")
