@@ -5,7 +5,8 @@ from django.views import generic
 
 from tasks.forms import (
     WorkerForm,
-    TaskForm,
+    TaskUpdateForm,
+    TaskCreateForm,
     TaskNameSearchForm,
     WorkerUsernameSearchForm,
 )
@@ -72,6 +73,7 @@ class TaskTypeUpdateView(generic.UpdateView):
 
 class TaskTypeDeleteView(generic.DeleteView):
     model = TaskType
+    context_object_name = "task_type"
     success_url = reverse_lazy("tasks:task-type-list")
 
 
@@ -98,19 +100,19 @@ class TaskListView(generic.ListView):
 
 class TaskDetailView(generic.DetailView):
     queryset = (Task.objects.select_related("task_type")
-                .prefetch_related("assignees"))
+                .prefetch_related("assignees__position"))
     template_name = "tasks/task_detail.html"
 
 
 class TaskCreateView(generic.CreateView):
     model = Task
-    form_class = TaskForm
+    form_class = TaskCreateForm
     success_url = reverse_lazy("tasks:task-list")
 
 
 class TaskUpdateView(generic.UpdateView):
     model = Task
-    form_class = TaskForm
+    form_class = TaskUpdateForm
     success_url = reverse_lazy("tasks:task-list")
 
 
