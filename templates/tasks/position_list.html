@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Positions | Task Manager{% endblock %}
+{% block content %}
+  <h1>Positions</h1>
+  <p><a href="#">+ Create new position</a></p>
+  {% if position_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>№ of Workers</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for position in position_list%}
+          <tr>
+            <td>{{ position.name }}</td>
+            <td>{{ position.num_workers }}</td>
+            <td><a href="#">Update</a></td>
+            <td><a href="#">Delete</a></td>
+          </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No positions found</p>
+  {% endif %}
+{% endblock %}

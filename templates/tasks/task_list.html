@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Tasks | Task Manager{% endblock %}
+{% block content %}
+  <h1>Tasks</h1>
+  {% if task_list %}
+    <div>
+      {% for task in task_list %}
+        <div>
+          <h2><a href="#">{{ task.name }}</a></h2>
+
+          <p><b>Type:</b> {{ task.task_type.name }}</p>
+          <p><b>Priority:</b> {{ task.priority }}</p>
+          <p><b>Deadline:</b> {{ task.deadline }}</p>
+          <p><b>Status:</b>
+            {% if task.is_completed %}
+              ✅ Completed
+            {% else %}
+              ❌ In Progress
+            {% endif %}
+          </p>
+
+          <p>
+            <a href="#">Update</a>|
+            <a href="#">Delete</a>
+          </p>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    No tasks found
+  {% endif %}
+
+{% endblock %}
