@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>{% block title %}Task Manager{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-$END$
+  <header>
+    <strong>IT Company Task Manager</strong>
+    <nav>
+      <a href="#">Home</a>|
+      <a href="#">Tasks</a>|
+      <a href="#">Workers</a>|
+      <a href="#">Positions</a>|
+      <a href="#">Task Types</a>
+    </nav>
+  </header>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+  <footer>
+    <p>&copy; 2026 Task Manager. All rights reserved.</p>
+  </footer>
 </body>
 </html>
