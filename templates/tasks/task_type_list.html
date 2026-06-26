@@ -18,8 +18,8 @@
           <tr>
             <td>{{ task_type.name }}</td>
             <td>{{ task_type.num_tasks }}</td>
-            <td><a href="#">Update</a></td>
-            <td><a href="#">Delete</a></td>
+            <td><a href="{% url "tasks:task-type-update" pk=task_type.id %}">Update</a></td>
+            <td><a href="{% url "tasks:task-type-delete" pk=task_type.id%}">Delete</a></td>
           </tr>
       {% endfor %}
       </tbody>
