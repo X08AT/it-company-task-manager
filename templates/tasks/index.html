@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>IT Company Task Manager</h1>
+  <p>Welcome to Task Manager! Streamline your team's workflow: create tasks, filter them by priority, manage team members, and complete sprints without chaos or missed deadlines.</p>
+  <ul>
+    <li>Tasks:{{ num_tasks }}</li>
+    <li>Not completed tasks:{{ num_not_completed }}</li>
+    <li> Urgent Tasks:{{ num_urgent }}</li>
+    <li>Workers:{{ num_workers }}</li>
+  </ul>
+{% endblock %}
