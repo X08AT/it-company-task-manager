@@ -9,6 +9,7 @@ class TaskUpdateForm(forms.ModelForm):
         model = Task
         fields = "__all__"
         widgets = {
+            "tags": forms.CheckboxSelectMultiple(),
             "assignees": forms.CheckboxSelectMultiple(),
             "deadline": forms.DateInput(attrs={"type": "date"}),
         }
@@ -19,6 +20,7 @@ class TaskCreateForm(forms.ModelForm):
         model = Task
         exclude = ["is_completed"]
         widgets = {
+            "tags": forms.CheckboxSelectMultiple(),
             "assignees": forms.CheckboxSelectMultiple(),
             "deadline": forms.DateInput(attrs={"type": "date"}),
         }
