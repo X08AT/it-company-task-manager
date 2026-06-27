@@ -11,6 +11,18 @@
   <p><strong>Priority: {{ task.get_priority_display }}</strong></p>
   <p><strong>Status:{% if task.is_completed %}✅ Completed{% else %}❌ In Progress{% endif %}</strong></p>
   <hr>
+  <form method="post" action="{% url "tasks:toggle-assign-task" pk=task.id %}">
+    {% csrf_token %}
+    {% if task in user.tasks.all %}
+      <button type="submit">
+        Delete me from this task
+      </button>
+    {% else %}
+      <button type="submit">
+        Assign me to this task
+      </button>
+    {% endif %}
+  </form>
   <h3>Assignees</h3>
   <ul>
     {% for worker in task.assignees.all %}
