@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Sign up | Task Manager{% endblock %}
+
+{% block content %}
+  <h2>Create an Account (Worker)</h2>
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+  </form>
+  <p>
+    Already have an account? <a href="{% url 'login' %}">Log In here</a>.
+  </p>
+{% endblock %}

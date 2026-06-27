@@ -18,7 +18,7 @@ from tasks.views import (
     TaskDetailView,
     WorkerDetailView,
     TaskUpdateView,
-    TaskDeleteView,
+    TaskDeleteView, SignUpView,
 )
 from django.urls import path
 
@@ -93,4 +93,5 @@ urlpatterns = [
         WorkerDeleteView.as_view(),
         name="worker-delete"
     ),
+    path("accounts/signup/", SignUpView.as_view(), name="signup"),
 ]
