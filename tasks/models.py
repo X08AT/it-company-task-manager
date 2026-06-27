@@ -40,8 +40,17 @@ class TaskType(models.Model):
         return self.name
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
 class Task(models.Model):
-    #change priority to integer choices
     class Priority(models.TextChoices):
         URGENT = "A_URGENT", "Urgent"
         HIGH = "B_HIGH", "High"
@@ -62,6 +71,7 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         related_name="tasks"
     )
+    tags = models.ManyToManyField(Tag, blank=True, related_name="tasks")
     assignees = models.ManyToManyField(
         Worker,
         blank=True,
