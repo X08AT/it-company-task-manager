@@ -192,7 +192,6 @@ class SignUpView(generic.CreateView):
             return redirect("tasks:index")
         return super().dispatch(request, *args, **kwargs)
 
-
     def form_valid(self, form):
         response = super().form_valid(form)
         login(self.request, self.object)
