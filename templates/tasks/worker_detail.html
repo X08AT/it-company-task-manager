@@ -8,14 +8,28 @@
   <p><strong>{{ worker.first_name }} {{ worker.last_name }}</strong></p>
   <p><strong>Email: {{ worker.email }}</strong></p>
   <h3>Tasks:</h3>
+  <h4>In progress:</h4>
   <ul>
     {% for task in worker.tasks.all %}
-      <li>
-        <a href="{% url "tasks:task-detail" pk=task.id %}">{{ task.name }}</a>
-        ({{ task.task_type.name }})
-      </li>
-    {% empty %}
-      <li>No task assigned to this worker.</li>
+      {% if not task.is_completed %}
+        <li>
+          <a href="{% url "tasks:task-detail" pk=task.id %}">{{ task.name }}</a>
+          <span>({{ task.task_type }})</span>
+          <span>Priority: {{ task.get_priority_display }}</span>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  <h4>Completed Tasks:</h4>
+  <ul>
+    {% for task in worker.tasks.all %}
+      {% if task.is_completed %}
+        <li>
+          <a href="{% url "tasks:task-detail" pk=task.id %}">{{ task.name }}</a>
+          <span>({{ task.task_type }})</span>
+          <span>Done</span>
+        </li>
+      {% endif %}
     {% endfor %}
   </ul>
 {% endblock %}
