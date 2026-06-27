@@ -28,7 +28,7 @@
     {% for worker in task.assignees.all %}
       <li>
         {{ worker.first_name }} {{ worker.last_name }}
-        ({{ worker.username }})
+        <a href="{% url "tasks:worker-detail" pk=worker.id %}">({{ worker.username }})</a>
         <b>[{{ worker.position.name|default:"No position" }}]</b>
       </li>
     {% empty %}
