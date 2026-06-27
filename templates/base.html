@@ -10,23 +10,22 @@
   <header>
     <strong>IT Company Task Manager</strong>
     <nav>
-      <a href="{% url "tasks:index" %}">Home</a>|
-      <a href="{% url "tasks:task-list" %}">Tasks</a>|
-      <a href="{% url "tasks:worker-list" %}">Workers</a>|
-      <a href="{% url "tasks:position-list" %}">Positions</a>|
-      <a href="{% url "tasks:task-type-list" %}">Task Types</a>|
-      <a href="{% url "tasks:tag-list" %}">Tags</a>|
-
       {% if user.is_authenticated %}
         <p>Hello {{user.username}}!</p>
         <form action="{% url "logout" %}" method="post">
           {% csrf_token %}
           <button type="submit">Logout</button>
         </form>
+      {% else %}
+        <a href="{% url "login" %}">Log in</a>
+        <a href="{% url "tasks:signup" %}">Sign up</a>
       {% endif %}
     </nav>
   </header>
   <main>
+    {% block sidebar %}
+      {% include "includes/sidebar.html" %}
+    {% endblock %}
     {% block content %}
     {% endblock %}
     {% block pagination %}
