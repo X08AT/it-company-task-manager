@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Tags | Task Manager{% endblock %}
+{% block content %}
+  <h1>Tags</h1>
+  <p><a href="{% url "tasks:tag-create" %}">+ Create new tag</a></p>
+  {% if tag_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>№ of Tasks</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tag in tag_list%}
+          <tr>
+            <td>{{ tag.name }}</td>
+            <td>{{ tag.num_tasks }}</td>
+            <td><a href="{% url "tasks:tag-update" pk=tag.id %}">Update</a></td>
+            <td><a href="{% url "tasks:tag-delete" pk=tag.id%}">Delete</a></td>
+          </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No tags found</p>
+  {% endif %}
+{% endblock %}
