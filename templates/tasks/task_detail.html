@@ -7,6 +7,17 @@
   </h1>
   <p><strong>{{ task.description }}</strong></p>
   <p><strong>Type of task: {{ task.task_type.name }}</strong></p>
+  <p><strong>Tags:</strong>
+    {% if task.tags.all %}
+      {% for tag in task.tags.all %}
+        <span>
+          #{{ tag.name }}
+        </span>
+      {% endfor %}
+    {% else %}
+      No tags
+    {% endif %}
+  </p>
   <p><strong>Deadline: {{ task.deadline }}</strong></p>
   <p><strong>Priority: {{ task.get_priority_display }}</strong></p>
   <p><strong>Status:{% if task.is_completed %}✅ Completed{% else %}❌ In Progress{% endif %}</strong></p>
