@@ -127,3 +127,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 AUTH_USER_MODEL = "tasks.Worker"
+
+LOGIN_REDIRECT_URL = "tasks:index"
+
+LOGOUT_REDIRECT_URL = "login"
