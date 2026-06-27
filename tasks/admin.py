@@ -46,7 +46,8 @@ class TaskAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(TaskAdmin, self).get_queryset(request)
-        return qs.select_related("task_type").prefetch_related("assignees", "tags")
+        return (qs.select_related("task_type").
+                prefetch_related("assignees", "tags"))
 
 
 @admin.register(Worker)

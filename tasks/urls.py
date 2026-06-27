@@ -18,7 +18,12 @@ from tasks.views import (
     TaskDetailView,
     WorkerDetailView,
     TaskUpdateView,
-    TaskDeleteView, SignUpView, TagListView, TagCreateView, TagUpdateView, TagDeleteView,
+    TaskDeleteView,
+    SignUpView,
+    TagListView,
+    TagCreateView,
+    TagUpdateView,
+    TagDeleteView,
 )
 from django.urls import path
 
