@@ -83,7 +83,8 @@ class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
-    queryset = Task.objects.select_related("task_type").prefetch_related("tags")
+    queryset = (Task.objects.select_related("task_type")
+                .prefetch_related("tags"))
     paginate_by = 5
     template_name = "tasks/task_list.html"
     context_object_name = "task_list"
@@ -175,10 +176,10 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
 @require_POST
 def toggle_assign_to_task(request, pk):
     task = get_object_or_404(Task, id=pk)
-    if task in request.user.tasks.all():
-        request.user.tasks.remove(task)
+    if request.user in task.assignees.all():
+        task.assignees.remove(request.user)
     else:
-        request.user.tasks.add(task)
+        task.assignees.add(request.user)
     return redirect("tasks:task-detail", pk=pk)
 
 
