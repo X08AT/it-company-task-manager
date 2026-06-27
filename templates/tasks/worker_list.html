@@ -3,6 +3,10 @@
 {% block content %}
   <h1>Workers</h1>
   <p><a href="{% url "tasks:worker-create" %}">+ Create new Worker</a></p>
+  <form action="" method="get">
+    {{ search_form }}
+    <input type="submit" value="Find">
+  </form>
   {% if worker_list %}
     <div>
       {% for worker in worker_list %}
