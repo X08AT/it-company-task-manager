@@ -83,7 +83,7 @@ class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
-    queryset = Task.objects.select_related("task_type")
+    queryset = Task.objects.select_related("task_type").prefetch_related("tags")
     paginate_by = 5
     template_name = "tasks/task_list.html"
     context_object_name = "task_list"
@@ -105,7 +105,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = (Task.objects.select_related("task_type")
-                .prefetch_related("assignees__position"))
+                .prefetch_related("assignees__position", "tags"))
     template_name = "tasks/task_detail.html"
 
 
