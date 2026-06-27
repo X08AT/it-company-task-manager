@@ -25,7 +25,9 @@ class Worker(AbstractUser):
         ordering = ["username"]
 
     def __str__(self):
-        return f"{self.username} ({self.first_name} {self.last_name})"
+        if self.first_name and self.last_name:
+            return f"{self.username} ({self.first_name} {self.last_name})"
+        return f"{self.username}"
 
 
 class TaskType(models.Model):
@@ -39,6 +41,7 @@ class TaskType(models.Model):
 
 
 class Task(models.Model):
+    #change priority to integer choices
     class Priority(models.TextChoices):
         URGENT = "A_URGENT", "Urgent"
         HIGH = "B_HIGH", "High"
