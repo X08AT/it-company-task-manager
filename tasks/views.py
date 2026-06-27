@@ -14,7 +14,7 @@ from tasks.forms import (
     TaskNameSearchForm,
     WorkerUsernameSearchForm,
 )
-from tasks.models import Task, Worker, Position, TaskType
+from tasks.models import Task, Worker, Position, TaskType, Tag
 
 
 @login_required
@@ -196,3 +196,25 @@ class SignUpView(generic.CreateView):
         response = super().form_valid(form)
         login(self.request, self.object)
         return response
+
+
+class TagListView(LoginRequiredMixin, generic.ListView):
+    queryset = Tag.objects.annotate(num_tasks=Count("tasks"))
+    template_name = "tasks/tag_list.html"
+
+
+class TagCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("tasks:tag-list")
+
+
+class TagUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("tasks:tag-list")
+
+
+class TagDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Tag
+    success_url = reverse_lazy("tasks:tag-list")
