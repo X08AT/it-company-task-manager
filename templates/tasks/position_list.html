@@ -1,30 +1,113 @@
-{% extends "base.html" %}
-{% block title %}Positions | Task Manager{% endblock %}
+{% extends 'layouts/base-presentation.html' %}
+{% load static %}
+
+{% block title %} Positions | Task Manager {% endblock title %}
+
 {% block content %}
-  <h1>Positions</h1>
-  <p><a href="{% url "tasks:position-create" %}">+ Create new position</a></p>
-  {% if position_list %}
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>№ of Workers</th>
-          <th>Update</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for position in position_list%}
-          <tr>
-            <td>{{ position.name }}</td>
-            <td>{{ position.num_workers }}</td>
-            <td><a href="{% url "tasks:position-update" pk=position.id %}">Update</a></td>
-            <td><a href="{% url "tasks:position-delete" pk=position.id %}">Delete</a></td>
-          </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>No positions found</p>
-  {% endif %}
-{% endblock %}
+  <header class="header-2">
+    <div class="page-header section-height-50 relative" style="background-image: url('https://images.unsplash.com/photo-1659241869140-3cb7cdff42fd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0')">
+      <span class="mask bg-gradient-dark opacity-4"></span>
+
+      <div class="container" style="position: relative; z-index: 2;">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3">Company Positions</h1>
+            <p class="lead text-white mt-3">
+              Manage corporate roles, structure your tech teams, and monitor worker distribution across positions.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="position-absolute w-100 z-index-1 bottom-0">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+          <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+          </defs>
+          <g class="moving-waves">
+            <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40)" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+            <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+            <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+            <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95)" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <section class="py-5 bg-white" id="positions-section">
+    <div class="container-fluid py-4">
+      <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+          <div class="card bg-gradient-dark border-0 border-radius-xl p-4 shadow-lg">
+
+            <div class="card-header bg-transparent pb-0 d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h4 class="mb-0 font-weight-bolder text-white">Available Positions</h4>
+                <p class="text-sm text-muted mb-0">Total list of active positions inside the system</p>
+              </div>
+              <a href="{% url 'tasks:position-create' %}" class="btn btn-sm bg-gradient-light text-dark mb-0 shadow-sm">
+                <i class="fas fa-plus me-2" aria-hidden="true"></i> Create new position
+              </a>
+            </div>
+
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive p-0">
+                {% if position_list %}
+                  <table class="table align-items-center mb-0">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Position Name</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">№ of Workers</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for position in position_list %}
+                        <tr class="border-bottom border-dark">
+                          <td>
+                            <div class="d-flex px-3 py-1 align-items-center">
+                              <div class="icon icon-shape icon-sm shadow border-radius-md bg-gradient-primary text-center me-3 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; min-width: 32px;">
+                                <i class="fas fa-briefcase text-white text-xs opacity-10" aria-hidden="true"></i>
+                              </div>
+                              <h6 class="mb-0 text-sm font-weight-bold text-white">{{ position.name }}</h6>
+                            </div>
+                          </td>
+
+                          <td class="align-middle text-center text-sm">
+                            <span class="badge badge-sm bg-gradient-light text-dark font-weight-bold">
+                              {{ position.num_workers }} workers
+                            </span>
+                          </td>
+
+                          <td class="align-middle text-center">
+                            <a href="{% url 'tasks:position-update' pk=position.id %}" class="btn btn-link text-white px-3 mb-0 text-xs text-uppercase font-weight-bold">
+                              <i class="fas fa-pencil-alt text-white me-2" aria-hidden="true"></i> Update
+                            </a>
+                            <a href="{% url 'tasks:position-delete' pk=position.id %}" class="btn btn-link text-danger text-gradient px-3 mb-0 text-xs text-uppercase font-weight-bold">
+                              <i class="far fa-trash-alt me-2" aria-hidden="true"></i> Delete
+                            </a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                {% else %}
+                  <div class="text-center py-5">
+                    <div class="icon icon-shape icon-lg bg-gradient-light shadow text-center border-radius-xl mx-auto mb-3 d-flex align-items-center justify-content-center">
+                      <i class="fas fa-folder-open text-dark opacity-10" aria-hidden="true"></i>
+                    </div>
+                    <h5 class="text-white font-weight-bold">No positions found</h5>
+                    <p class="text-sm text-muted">Get started by creating your first company position above.</p>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
