@@ -26,6 +26,14 @@
                 <form role="form" method="post" action="{% url 'login' %}" autocomplete="off">
                   {% csrf_token %}
 
+                  {% if form.non_field_errors %}
+                    <div class="alert alert-danger text-xs border-radius-md p-2 mb-3" role="alert" style="color: #ea0606; background-color: #ffeeef; border: 1px solid rgba(234, 6, 6, 0.2);">
+                      {% for error in form.non_field_errors %}
+                        {{ error }}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
                   <div class="text-xs-custom">
                     {{ form|crispy }}
                   </div>
@@ -58,7 +66,7 @@
             <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden">
               <img src="{{ ASSETS_ROOT }}/img/shapes/pattern-lines.svg" alt="pattern-lines" class="position-absolute opacity-4 start-0">
               <div class="position-relative">
-                <img class="max-width-500 w-100 position-relative z-index-2" src="{{ ASSETS_ROOT }}/img//codew.png" alt="chat-illustration">
+                <img class="max-width-500 w-100 position-relative z-index-2" src="{{ ASSETS_ROOT }}/img/codew.png" alt="chat-illustration">
               </div>
               <h4 class="mt-5 text-white font-weight-bolder">IT Company Task Manager</h4>
               <p class="text-white text-xs opacity-8 px-4">

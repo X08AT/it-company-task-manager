@@ -24,7 +24,7 @@
               </div>
 
               <div class="card-body py-3">
-                <form role="form" method="post" action="" autocomplete="off">
+                <form role="form" method="post" action="{% url 'tasks:signup' %}" autocomplete="off">
                   {% csrf_token %}
 
                   {% if form.non_field_errors %}
@@ -42,7 +42,7 @@
                   <div class="form-check form-switch mt-3">
                     <input class="form-check-input" type="checkbox" id="termsAgree" required>
                     <label class="form-check-label text-xs text-secondary" for="termsAgree">
-                      Agree with <a href="https://github.com/X08AT/it-company-task-manager/blob/main/README.md" class="text-dark font-weight-bold">project documentation</a>
+                      Agree with <a href="https://github.com/X08AT/it-company-task-manager/blob/main/README.md" class="text-dark font-weight-bold" target="_blank">project documentation</a>
                     </label>
                   </div>
 
@@ -67,11 +67,11 @@
             <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden">
               <img src="{{ ASSETS_ROOT }}/img/shapes/pattern-lines.svg" alt="pattern-lines" class="position-absolute opacity-4 start-0">
               <div class="position-relative">
-                <img class="max-width-500 w-100 position-relative z-index-2" src="{{ ASSETS_ROOT }}/img//codew.png" alt="chat-illustration">
+                <img class="max-width-500 w-100 position-relative z-index-2" src="{{ ASSETS_ROOT }}/img/codew.png" alt="chat-illustration">
               </div>
               <h4 class="mt-5 text-white font-weight-bolder">IT Company Task Manager</h4>
               <p class="text-white text-xs opacity-8 px-4">
-                &copy;Made by Artem Turchyn
+                &copy; Made by Artem Turchyn
               </p>
             </div>
           </div>
