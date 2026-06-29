@@ -1,44 +1,147 @@
-{% extends "base.html" %}
-{% block title %}Tasks | Task Manager{% endblock %}
+{% extends 'layouts/base-presentation.html' %}
+{% load static %}
+
+{% block title %} Tasks | Task Manager {% endblock title %}
+
 {% block content %}
-  <h1>Tasks</h1>
-  <p><a href="{% url "tasks:task-create" %}">+ Create new task</a></p>
-  <form action="" method="get">
-    {{ search_form }}
-    <input type="submit" value="Find">
-  </form>
-  {% if task_list %}
-    <div>
-      {% for task in task_list %}
-        <div>
-          <h2><a href="{% url "tasks:task-detail" pk=task.id %}">{{ task.name }}</a></h2>
+  <header class="header-2">
+    <div class="page-header section-height-50 relative" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.2.1&auto=format&fit=crop&w=1950&q=80')">
+      <span class="mask bg-gradient-dark opacity-4"></span>
 
-          <p><b>Type:</b> {{ task.task_type.name }}</p>
-          <p><b>Tags:</b>
-            {% if task.tags.all %}
-              {% for tag in task.tags.all %}
-                <span>
-                  #{{ tag.name }}
-                </span>
-              {% endfor %}
-            {% else %}
-              No tags
-            {% endif %}
-          </p>
-          <p><b>Priority:</b> {{ task.get_priority_display }}</p>
-          <p><b>Deadline:</b> {{ task.deadline }}</p>
-          <p><b>Status:</b>
-            {% if task.is_completed %}
-              ✅ Completed
-            {% else %}
-              ❌ In Progress
-            {% endif %}
-          </p>
+      <div class="container" style="position: relative; z-index: 2;">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3 font-weight-bolder">Task Board</h1>
+            <p class="lead text-white mt-3 opacity-9">Monitor company objectives, track strict deadlines, filter workflows, and manage priorities.</p>
+          </div>
         </div>
-      {% endfor %}
+      </div>
+      <div class="position-absolute w-100 z-index-1 bottom-0">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+          <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+          <g class="moving-waves">
+            <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40)" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+            <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+            <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+            <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95)" />
+          </g>
+        </svg>
+      </div>
     </div>
-  {% else %}
-    No tasks found
-  {% endif %}
+  </header>
 
-{% endblock %}
+  <section class="py-5 bg-white">
+    <div class="container-fluid py-4">
+      <div class="row justify-content-center">
+        <div class="col-12 col-xl-10 bg-gradient-dark border-0 border-radius-xl p-4 p-md-5 shadow-lg">
+
+          <div class="row align-items-center mb-5 g-3">
+            <div class="col-lg-4 col-md-12 text-start">
+              <h4 class="mb-0 font-weight-bolder text-white">Active Corporate Tasks</h4>
+              <p class="text-sm text-muted mb-0">Track sprint progress and current objectives</p>
+            </div>
+
+            <div class="col-lg-5 col-md-8">
+              <form action="" method="get" class="mb-0">
+                <div class="input-group">
+                  <span class="input-group-text text-body bg-transparent border-secondary border-end-0" style="padding-left: 15px;">
+                    <i class="fas fa-search text-muted" aria-hidden="true"></i>
+                  </span>
+                  <input type="text"
+                         name="name"
+                         class="form-control bg-transparent text-white border-secondary border-start-0 px-2"
+                         placeholder="Search task by name..."
+                         value="{{ request.GET.name|default:'' }}"
+                         style="height: 43px; box-shadow: none;">
+                  <button type="submit" class="btn btn-sm btn-white mb-0 px-4 font-weight-bold" style="border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; height: 43px;">
+                    Find
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-lg-3 col-md-4 text-md-end">
+              <a href="{% url 'tasks:task-create' %}" class="btn btn-sm bg-gradient-primary mb-0 w-100 text-center shadow-sm py-2" style="height: 43px; display: inline-flex; align-items: center; justify-content: center;">
+                <i class="fas fa-plus me-2" aria-hidden="true"></i> Create Task
+              </a>
+            </div>
+          </div>
+
+          {% if task_list %}
+            <div class="row">
+              {% for task in task_list %}
+                <div class="col-xl-4 col-md-6 mb-4">
+                  <div class="card bg-transparent border border-secondary p-4 h-100 border-radius-lg d-flex flex-column justify-content-between">
+
+                    <div>
+                      <div class="d-flex justify-content-between align-items-start mb-2">
+                        <span class="text-xs text-uppercase font-weight-bold text-muted">
+                          <i class="fas fa-layer-group text-xxs me-1"></i> {{ task.task_type.name }}
+                        </span>
+                        <span class="badge badge-sm px-2 py-1 {% if task.is_completed %}bg-gradient-success{% else %}bg-gradient-warning{% endif %}">
+                          {% if task.is_completed %}Done{% else %}In Progress{% endif %}
+                        </span>
+                      </div>
+
+                      <h5 class="mb-3 text-start">
+                        <a href="{% url 'tasks:task-detail' pk=task.id %}" class="text-white text-gradient text-primary font-weight-bold link-hover {% if task.is_completed %}text-decoration-none opacity-6{% endif %}">
+                          {{ task.name }}
+                        </a>
+                      </h5>
+
+                      <div class="text-start mb-4">
+                        {% if task.tags.all %}
+                          {% for tag in task.tags.all %}
+                            <span class="badge text-xxs font-weight-normal px-2 py-1 me-1 mb-1 border-radius-md"
+                                  style="border: 1px solid {% cycle '#5e72e4' '#b80051' '#11cdef' '#fb6340' '#2dce89' %}; color: rgba(255,255,255,0.85);">
+                              #{{ tag.name }}
+                            </span>
+                          {% endfor %}
+                        {% else %}
+                          <span class="text-xxs text-muted italic">No tags</span>
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div>
+                      <hr class="horizontal light my-3">
+                      <div class="d-flex justify-content-between align-items-center text-start">
+                        <div>
+                          <p class="text-xxs text-muted mb-0 text-uppercase font-weight-bold">Priority</p>
+                          <span class="text-xs font-weight-bold {% if task.priority == 'H' or task.priority == 'CR' %}text-danger{% elif task.priority == 'M' %}text-warning{% else %}text-secondary{% endif %}">
+                            {{ task.get_priority_display }}
+                          </span>
+                        </div>
+                        <div class="text-end">
+                          <p class="text-xxs text-muted mb-0 text-uppercase font-weight-bold">Deadline</p>
+                          <span class="text-xs text-white font-weight-bold">
+                            <i class="far fa-calendar-alt text-xxs me-1"></i> {{ task.deadline|date:"M d, Y"|default:"No limit" }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+
+            {% include 'includes/pagination.html' %}
+
+          {% else %}
+            <div class="text-center py-5">
+              <div class="icon icon-shape icon-lg bg-gradient-light shadow text-center border-radius-xl mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <i class="fas fa-tasks text-dark opacity-10" aria-hidden="true"></i>
+              </div>
+              <h5 class="text-white font-weight-bold">No tasks found</h5>
+              <p class="text-sm text-muted">Try modifying your search text or clear filters to see global tasks.</p>
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
