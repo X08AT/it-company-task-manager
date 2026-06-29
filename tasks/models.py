@@ -51,24 +51,23 @@ class Tag(models.Model):
 
 
 class Task(models.Model):
-    class Priority(models.TextChoices):
-        URGENT = "A_URGENT", "Urgent"
-        HIGH = "B_HIGH", "High"
-        MEDIUM = "C_MEDIUM", "Medium"
-        LOW = "D_LOW", "Low"
+    class Priority(models.IntegerChoices):
+        URGENT = 1, "Urgent"
+        HIGH = 2, "High"
+        MEDIUM = 3, "Medium"
+        LOW = 4, "Low"
 
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     deadline = models.DateField()
     is_completed = models.BooleanField(default=False)
-    priority = models.CharField(
-        max_length=10,
+    priority = models.IntegerField(
         choices=Priority.choices,
         default=Priority.MEDIUM
     )
     task_type = models.ForeignKey(
         TaskType,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name="tasks"
     )
     tags = models.ManyToManyField(Tag, blank=True, related_name="tasks")
