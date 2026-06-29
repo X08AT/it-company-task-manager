@@ -1,11 +1,55 @@
-{% extends "base.html" %}
-{% block title %}Delete Task Type | Task Manager{% endblock %}
-{% block content %}
-  <h1>Delete task type {{ task_type.name }} ?</h1>
-  <form action="" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Yes, Delete">
-    <a href="{% url "tasks:task-type-list" %}">Cancel</a>
-  </form>
+{% extends 'layouts/base-presentation.html' %}
 
-{% endblock %}
+{% block title %} Delete Task Type | Task Manager {% endblock title %}
+
+{% block body_class %} contact-us {% endblock body_class %}
+
+{% block content %}
+  <header>
+    <div class="page-header section-height-85">
+      <div>
+        <img class="position-absolute fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
+             src="https://plus.unsplash.com/premium_photo-1664392292014-9b4e83e12bb5?q=80&w=755&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+             alt="background">
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 d-flex justify-content-center flex-column">
+
+            <div class="card d-flex blur justify-content-center p-4 shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+
+              <div class="text-center mb-4">
+                <h3 class="text-gradient text-danger font-weight-bolder">
+                  Delete Task Type?
+                </h3>
+                <p class="mb-0 text-sm text-secondary">
+                  Are you sure you want to permanently delete the task type <strong class="text-dark">"{{ task_type.name }}"</strong>? This action cannot be undone.
+                </p>
+              </div>
+
+              <form role="form" id="delete-form" method="post">
+                {% csrf_token %}
+
+                <div class="card-body pb-2 text-center">
+                  <div class="row mt-2">
+                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                      <a href="{% url 'tasks:task-type-list' %}" class="btn btn-link text-dark text-sm font-weight-bold me-3 mb-0">
+                        Cancel
+                      </a>
+                      <button type="submit" class="btn bg-gradient-danger mb-0 shadow-sm">
+                        <i class="far fa-trash-alt me-2" aria-hidden="true"></i> Yes, Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock content %}
