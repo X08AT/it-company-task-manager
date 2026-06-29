@@ -1,0 +1,130 @@
+<div class="container position-sticky z-index-sticky top-0">
+  <div class="row">
+    <div class="col-12">
+      <nav class="navbar navbar-expand-lg blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+        <div class="container-fluid">
+
+          <a class="navbar-brand font-weight-bolder ms-sm-3" href="{% url 'tasks:index' %}">
+            IT Company Task Manager
+          </a>
+
+          <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon mt-2">
+              <span class="navbar-toggler-bar bar1"></span>
+              <span class="navbar-toggler-bar bar2"></span>
+              <span class="navbar-toggler-bar bar3"></span>
+            </span>
+          </button>
+
+          <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0" id="navigation">
+            <ul class="navbar-nav navbar-nav-hover ms-lg-auto w-100 d-flex align-items-center mb-0">
+
+              {% if user.is_authenticated %}
+                <li class="nav-item dropdown dropdown-hover mx-2">
+                  <a class="nav-link ps-2 d-flex justify-content-between align-items-center cursor-pointer"
+                     id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+                    Workspace
+                    <img src="/static/assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-animation dropdown-xl p-3 border-radius-xl mt-0 mt-lg-3" aria-labelledby="dropdownMenuPages">
+                    <div class="row d-none d-lg-flex">
+
+                      <div class="col-md-6 font-weight-xs">
+                        <div class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
+                          <i class="fa fa-tasks me-2 text-primary"></i> Tasks
+                        </div>
+                        <a href="{% url 'tasks:task-list' %}" class="dropdown-item border-radius-md font-weight-bold {% if request.resolver_match.url_name == 'task-list' %}bg-gray-100 text-primary{% endif %}">
+                          Task Board
+                          <span class="text-xs text-muted d-block font-weight-normal">View tasks list and their details</span>
+                        </a>
+                        <a href="{% url 'tasks:task-type-list' %}" class="dropdown-item border-radius-md font-weight-bold {% if request.resolver_match.url_name == 'task-type-list' %}bg-gray-100 text-primary{% endif %}">
+                          Task Types
+                          <span class="text-xs text-muted d-block font-weight-normal">View list of task types</span>
+                        </a>
+                        <a href="{% url 'tasks:tag-list' %}" class="dropdown-item border-radius-md font-weight-bold {% if request.resolver_match.url_name == 'tag-list' %}bg-gray-100 text-primary{% endif %}">
+                          Tags
+                          <span class="text-xs text-muted d-block font-weight-normal">View list of tags</span>
+                        </a>
+                      </div>
+
+                      <div class="col-md-6 font-weight-xs" style="border-left: 1px solid #f0f2f5;">
+                        <div class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
+                          <i class="fa fa-users me-2 text-info"></i> Team
+                        </div>
+                        <a href="{% url 'tasks:worker-list' %}" class="dropdown-item border-radius-md font-weight-bold {% if request.resolver_match.url_name == 'worker-list' or request.resolver_match.url_name == 'worker-detail' %}bg-gray-100 text-info{% endif %}">
+                          Workers
+                          <span class="text-xs text-muted d-block font-weight-normal">View workers list and their profiles</span>
+                        </a>
+                        <a href="{% url 'tasks:position-list' %}" class="dropdown-item border-radius-md font-weight-bold {% if request.resolver_match.url_name == 'position-list' %}bg-gray-100 text-info{% endif %}">
+                          Positions
+                          <span class="text-xs text-muted d-block font-weight-normal">View list of positions</span>
+                        </a>
+                      </div>
+
+                    </div>
+
+                    <div class="d-lg-none">
+                      <h6 class="dropdown-header text-dark font-weight-bolder px-1">Tasks</h6>
+                      <a href="{% url 'tasks:task-list' %}" class="dropdown-item border-radius-md {% if request.resolver_match.url_name == 'task-list' %}text-primary font-weight-bold{% endif %}">Task Board</a>
+                      <a href="{% url 'tasks:task-type-list' %}" class="dropdown-item border-radius-md {% if request.resolver_match.url_name == 'task-type-list' %}text-primary font-weight-bold{% endif %}">Task Types</a>
+                      <a href="{% url 'tasks:tag-list' %}" class="dropdown-item border-radius-md {% if request.resolver_match.url_name == 'tag-list' %}text-primary font-weight-bold{% endif %}">Tags</a>
+
+                      <h6 class="dropdown-header text-dark font-weight-bolder px-1 mt-3">Team</h6>
+                      <a href="{% url 'tasks:worker-list' %}" class="dropdown-item border-radius-md {% if request.resolver_match.url_name == 'worker-list' %}text-info font-weight-bold{% endif %}">Workers</a>
+                      <a href="{% url 'tasks:position-list' %}" class="dropdown-item border-radius-md {% if request.resolver_match.url_name == 'position-list' %}text-info font-weight-bold{% endif %}">Positions</a>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="nav-item ms-lg-auto d-flex align-items-center flex-wrap flex-lg-nowrap">
+                  <span class="text-sm me-3 text-dark font-weight-bold d-none d-lg-inline">
+                    <i class="fa fa-user-circle text-secondary me-1"></i> Hi, {{ user.username }}!
+                  </span>
+
+                  <form action="{% url 'logout' %}" method="post" class="d-inline mb-0">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link nav-link-icon btn-logout-link">
+                      <i class="fa fa-sign-out-alt me-1"></i>
+                      <p class="d-inline text-sm font-weight-bold mb-0">Logout</p>
+                    </button>
+                  </form>
+                </li>
+
+              {% else %}
+                <li class="nav-item ms-lg-auto">
+                  <a href="{% url 'login' %}" class="nav-link text-sm font-weight-bold me-3">Sign In</a>
+                </li>
+                <li class="nav-item my-auto">
+                  <a href="{% url 'tasks:signup' %}" class="btn btn-sm bg-gradient-primary btn-round mb-0 me-1">Sign Up</a>
+                </li>
+              {% endif %}
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<style>
+  .btn-logout-link {
+    background: none !important;
+    border: none !important;
+    padding: 0.5rem 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+    color: #565656;
+    transition: all 0.2s ease;
+  }
+  .btn-logout-link:hover {
+    color: #344767;
+    background: transparent !important;
+  }
+  .bg-gray-100 {
+    background-color: #f8f9fa !important;
+  }
+</style>
