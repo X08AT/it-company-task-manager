@@ -1,14 +1,118 @@
-{% extends "base.html" %}
-{% block title %}Sign up | Task Manager{% endblock %}
+{% extends 'layouts/base-fullscreen.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Sign Up | Task Manager {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} sign-in-illustration {% endblock body_class %}
 
 {% block content %}
-  <h2>Create an Account (Worker)</h2>
-  <form method="post" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-  </form>
-  <p>
-    Already have an account? <a href="{% url 'login' %}">Log In here</a>.
-  </p>
-{% endblock %}
+
+  {% include "includes/navigation.html" %}
+
+  <section>
+    <div class="page-header min-vh-100 pt-6 pb-5">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-xl-5 col-lg-6 col-md-8 d-flex flex-column mx-lg-0 mx-auto text-start">
+            <div class="card card-plain bg-white p-4 border-radius-xl shadow-xs">
+              <div class="card-header pb-0 text-left bg-transparent">
+                <h4 class="font-weight-bolder text-gradient text-primary mb-1">Create an Account</h4>
+                <p class="mb-0 text-xs text-muted">Fill in your worker credentials to get started</p>
+              </div>
+
+              <div class="card-body py-3">
+                <form role="form" method="post" action="" autocomplete="off">
+                  {% csrf_token %}
+
+                  {% if form.non_field_errors %}
+                    <div class="alert alert-danger text-white text-xs border-radius-md p-2 mb-3" role="alert">
+                      {% for error in form.non_field_errors %}
+                        {{ error }}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
+                  <div class="text-xs-custom">
+                    {{ form|crispy }}
+                  </div>
+
+                  <div class="form-check form-switch mt-3">
+                    <input class="form-check-input" type="checkbox" id="termsAgree" required>
+                    <label class="form-check-label text-xs text-secondary" for="termsAgree">
+                      Agree with <a href="https://github.com/X08AT/it-company-task-manager/blob/main/README.md" class="text-dark font-weight-bold">project documentation</a>
+                    </label>
+                  </div>
+
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-sm bg-gradient-primary w-100 mt-3 mb-0 font-weight-bold py-2">
+                      Register
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="card-footer text-center pt-0 px-lg-2 px-1 bg-transparent">
+                <p class="mb-0 text-sm mx-auto">
+                  Already have an account?
+                  <a href="{% url 'login' %}" class="text-primary text-gradient font-weight-bold">Log In here</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden">
+              <img src="{{ ASSETS_ROOT }}/img/shapes/pattern-lines.svg" alt="pattern-lines" class="position-absolute opacity-4 start-0">
+              <div class="position-relative">
+                <img class="max-width-500 w-100 position-relative z-index-2" src="{{ ASSETS_ROOT }}/img//codew.png" alt="chat-illustration">
+              </div>
+              <h4 class="mt-5 text-white font-weight-bolder">IT Company Task Manager</h4>
+              <p class="text-white text-xs opacity-8 px-4">
+                &copy;Made by Artem Turchyn
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .text-xs-custom label {
+      font-size: 0.7rem !important;
+      font-weight: 700 !important;
+      color: #344767 !important;
+      margin-bottom: 0.2rem !important;
+      text-transform: uppercase;
+    }
+    .text-xs-custom .form-control, .text-xs-custom .form-select {
+      padding: 0.5rem 0.75rem !important;
+      font-size: 0.85rem !important;
+      border-radius: 0.5rem !important;
+    }
+    .text-xs-custom .mb-3 {
+      margin-bottom: 0.75rem !important;
+    }
+    .text-xs-custom .asteriskField {
+      display: none !important;
+    }
+    .text-xs-custom .invalid-feedback {
+      font-size: 0.72rem !important;
+      font-weight: 600;
+    }
+    .text-xs-custom .form-text {
+      font-size: 0.7rem !important;
+      color: #8392ab !important;
+      margin-top: 0.2rem !important;
+    }
+  </style>
+
+{% endblock content %}
+
+{% block javascripts %}
+  <script src="{{ ASSETS_ROOT }}/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
+{% endblock javascripts %}
