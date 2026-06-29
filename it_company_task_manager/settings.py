@@ -127,7 +127,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-ASSETS_ROOT =  "/static/assets"
+ASSETS_ROOT = "/static/assets"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
