@@ -1,21 +1,59 @@
 {% load query_transform %}
 
 {% if is_paginated %}
-  <ul>
-    {% if page_obj.has_previous %}
-      <li>
-        <a href="?{% query_transform request page=page_obj.previous_page_number %}">prev</a>
-      </li>
-    {% endif %}
+  <div class="row mt-4">
+    <div class="col-12 d-flex justify-content-center">
+      <ul class="pagination pagination-primary mb-0 align-items-center">
 
-    <li>
-      <span>{{ page_obj.number }} of {{ paginator.num_pages }}</span>
-    </li>
+        {% if page_obj.has_previous %}
+          <li class="page-item mx-1">
+            <a class="page-link bg-transparent border-secondary text-white d-flex align-items-center justify-content-center font-weight-bold text-lg"
+               href="?{% query_transform request page=page_obj.previous_page_number %}" aria-label="Previous" style="width: 40px; height: 40px; padding: 0;">
+              &laquo;
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled opacity-3 mx-1">
+            <span class="page-link bg-transparent border-secondary text-white d-flex align-items-center justify-content-center font-weight-bold text-lg" style="width: 40px; height: 40px; padding: 0;">
+              &laquo;
+            </span>
+          </li>
+        {% endif %}
 
-    {% if page_obj.has_next %}
-      <li>
-        <a href="?{% query_transform request page=page_obj.next_page_number %}">next</a>
-      </li>
-    {% endif %}
-  </ul>
+        {% for num in paginator.page_range %}
+          {% if num == page_obj.number %}
+            <li class="page-item active mx-1">
+              <span class="page-link bg-gradient-primary border-primary text-white font-weight-bold d-flex align-items-center justify-content-center"
+                    style="width: 40px; height: 40px; box-shadow: none; padding: 0;">
+                {{ num }}
+              </span>
+            </li>
+          {% elif num == page_obj.number|add:"-1" or num == page_obj.number|add:"1" or page_obj.number == 1 and num == 3 or page_obj.number == paginator.num_pages and num == paginator.num_pages|add:"-2" %}
+            <li class="page-item mx-1">
+              <a class="page-link bg-transparent border-secondary text-white d-flex align-items-center justify-content-center"
+                 href="?{% query_transform request page=num %}" style="width: 40px; height: 40px; padding: 0;">
+                {{ num }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <li class="page-item mx-1">
+            <a class="page-link bg-transparent border-secondary text-white d-flex align-items-center justify-content-center font-weight-bold text-lg"
+               href="?{% query_transform request page=page_obj.next_page_number %}" aria-label="Next" style="width: 40px; height: 40px; padding: 0;">
+              &raquo;
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled opacity-3 mx-1">
+            <span class="page-link bg-transparent border-secondary text-white d-flex align-items-center justify-content-center font-weight-bold text-lg" style="width: 40px; height: 40px; padding: 0;">
+              &raquo;
+            </span>
+          </li>
+        {% endif %}
+
+      </ul>
+    </div>
+  </div>
 {% endif %}
