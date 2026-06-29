@@ -1,8 +1,9 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.db.models import Count
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -220,6 +221,20 @@ class SignUpView(generic.CreateView):
         response = super().form_valid(form)
         login(self.request, self.object)
         return response
+
+
+class CustomLoginView(LoginView):
+    template_name = "registration/login.html"
+
+    def form_valid(self, form):
+        remember_me = self.request.POST.get("remember_me")
+
+        if remember_me:
+            self.request.session.set_expiry(None)
+        else:
+            self.request.session.set_expiry(0)
+
+        return super().form_valid(form)
 
 
 def custom_error_500(request):

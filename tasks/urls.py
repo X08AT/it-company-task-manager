@@ -24,6 +24,7 @@ from tasks.views import (
     TagCreateView,
     TagUpdateView,
     TagDeleteView,
+    CustomLoginView,
 )
 from django.urls import path
 
@@ -99,6 +100,7 @@ urlpatterns = [
         name="worker-delete"
     ),
     path("accounts/signup/", SignUpView.as_view(), name="signup"),
+    path("accounts/login/", CustomLoginView.as_view(), name="login"),
     path("tags/", TagListView.as_view(), name="tag-list"),
     path("tags/create/", TagCreateView.as_view(), name="tag-create"),
     path("tags/<int:pk>/update/", TagUpdateView.as_view(), name="tag-update"),
