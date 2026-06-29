@@ -1,6 +1,7 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -82,10 +83,32 @@ class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("tasks:task-type-list")
 
 
+class TagListView(LoginRequiredMixin, generic.ListView):
+    queryset = Tag.objects.annotate(num_tasks=Count("tasks"))
+    template_name = "tasks/tag_list.html"
+
+
+class TagCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("tasks:tag-list")
+
+
+class TagUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("tasks:tag-list")
+
+
+class TagDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Tag
+    success_url = reverse_lazy("tasks:tag-list")
+
+
 class TaskListView(LoginRequiredMixin, generic.ListView):
     queryset = (Task.objects.select_related("task_type")
                 .prefetch_related("tags"))
-    paginate_by = 5
+    paginate_by = 6
     template_name = "tasks/task_list.html"
     context_object_name = "task_list"
 
@@ -129,7 +152,7 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     queryset = Worker.objects.select_related("position")
-    paginate_by = 5
+    paginate_by = 6
     template_name = "tasks/worker_list.html"
     context_object_name = "worker_list"
 
@@ -199,23 +222,5 @@ class SignUpView(generic.CreateView):
         return response
 
 
-class TagListView(LoginRequiredMixin, generic.ListView):
-    queryset = Tag.objects.annotate(num_tasks=Count("tasks"))
-    template_name = "tasks/tag_list.html"
-
-
-class TagCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Tag
-    fields = "__all__"
-    success_url = reverse_lazy("tasks:tag-list")
-
-
-class TagUpdateView(LoginRequiredMixin, generic.UpdateView):
-    model = Tag
-    fields = "__all__"
-    success_url = reverse_lazy("tasks:tag-list")
-
-
-class TagDeleteView(LoginRequiredMixin, generic.DeleteView):
-    model = Tag
-    success_url = reverse_lazy("tasks:tag-list")
+def custom_error_500(request):
+    return render(request, "500.html", status=500)
