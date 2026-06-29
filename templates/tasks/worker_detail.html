@@ -87,8 +87,6 @@
                 </div>
 
                 <ul class="list-group list-group-flush mt-2">
-                  {% regroup worker.tasks.all by is_completed as task_status %}
-
                   {% for task in worker.tasks.all %}
                     {% if not task.is_completed %}
                       <li class="list-group-item px-0 border-0 d-flex justify-content-between align-items-center mb-2 bg-transparent">
@@ -101,8 +99,8 @@
                           </span>
                         </div>
                         <span class="badge badge-sm
-                          {% if task.priority == 'H' or task.priority == 'CR' %}bg-gradient-danger
-                          {% elif task.priority == 'M' %}bg-gradient-warning
+                          {% if task.priority == 1 or task.priority == 2 %}bg-gradient-danger
+                          {% elif task.priority == 3 %}bg-gradient-warning
                           {% else %}bg-gradient-secondary{% endif %}">
                           {{ task.get_priority_display }}
                         </span>

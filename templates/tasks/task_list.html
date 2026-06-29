@@ -110,7 +110,7 @@
                       <div class="d-flex justify-content-between align-items-center text-start">
                         <div>
                           <p class="text-xxs text-muted mb-0 text-uppercase font-weight-bold">Priority</p>
-                          <span class="text-xs font-weight-bold {% if task.priority == 'H' or task.priority == 'CR' %}text-danger{% elif task.priority == 'M' %}text-warning{% else %}text-secondary{% endif %}">
+                          <span class="text-xs font-weight-bold {% if task.priority == 1 or task.priority == 2 %}text-danger{% elif task.priority == 3 %}text-warning{% else %}text-secondary{% endif %}">
                             {{ task.get_priority_display }}
                           </span>
                         </div>

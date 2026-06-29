@@ -130,9 +130,9 @@
                 <div class="mb-4">
                   <label class="text-xs font-weight-bold text-muted text-uppercase mb-1 d-block">Priority</label>
                   <span class="badge badge-sm
-                    {% if task.priority == 'H' or task.priority == 'CR' %}bg-gradient-danger
-                    {% elif task.priority == 'M' %}bg-gradient-warning
-                    {% else %}bg-gradient-secondary{% endif %} px-3 py-15">
+                    {% if task.priority == 1 or task.priority == 2 %}bg-gradient-danger
+                    {% elif task.priority == 3 %}bg-gradient-warning
+                    {% else %}bg-gradient-secondary{% endif %} px-3 py-1">
                     {{ task.get_priority_display }}
                   </span>
                 </div>
@@ -179,6 +179,5 @@
 
   <style>
     .bg-gray-100 { background-color: #f8f9fa !important; }
-    .py-15 { padding-top: 0.35rem !important; padding-bottom: 0.35rem !important; }
   </style>
 {% endblock content %}

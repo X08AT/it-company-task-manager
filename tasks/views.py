@@ -24,14 +24,9 @@ def index(request):
     num_tasks = Task.objects.count()
     num_workers = Worker.objects.count()
     num_not_completed = Task.objects.filter(is_completed=False).count()
-    num_urgent = Task.objects.filter(
-        priority="A_URGENT",
-        is_completed=False
-    ).count()
     context = {
         "num_tasks": num_tasks,
         "num_workers": num_workers,
-        "num_urgent": num_urgent,
         "num_not_completed": num_not_completed,
     }
     return render(request, "tasks/index.html", context)
