@@ -6,7 +6,6 @@ from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic, View
-from django.views.decorators.http import require_POST
 
 from tasks.forms import (
     WorkerForm,
