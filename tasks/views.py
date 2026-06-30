@@ -5,7 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views import generic
+from django.views import generic, View
 from django.views.decorators.http import require_POST
 
 from tasks.forms import (
@@ -190,15 +190,14 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("tasks:worker-list")
 
 
-@login_required
-@require_POST
-def toggle_assign_to_task(request, pk):
-    task = get_object_or_404(Task, id=pk)
-    if request.user in task.assignees.all():
-        task.assignees.remove(request.user)
-    else:
-        task.assignees.add(request.user)
-    return redirect("tasks:task-detail", pk=pk)
+class ToggleAssignToTaskView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        if request.user in task.assignees.all():
+            task.assignees.remove(request.user)
+        else:
+            task.assignees.add(request.user)
+        return redirect("tasks:task-detail", pk=pk)
 
 
 class SignUpView(generic.CreateView):

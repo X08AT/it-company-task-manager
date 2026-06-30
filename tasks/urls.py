@@ -13,7 +13,6 @@ from tasks.views import (
     WorkerCreateView,
     WorkerUpdateView,
     WorkerDeleteView,
-    toggle_assign_to_task,
     TaskCreateView,
     TaskDetailView,
     WorkerDetailView,
@@ -25,6 +24,7 @@ from tasks.views import (
     TagUpdateView,
     TagDeleteView,
     CustomLoginView,
+    ToggleAssignToTaskView,
 )
 from django.urls import path
 
@@ -79,7 +79,7 @@ urlpatterns = [
     ),
     path(
         "tasks/<int:pk>/toggle-assign/",
-        toggle_assign_to_task,
+        ToggleAssignToTaskView.as_view(),
         name="toggle-assign-task",
     ),
     path("workers/", WorkerListView.as_view(), name="worker-list"),
