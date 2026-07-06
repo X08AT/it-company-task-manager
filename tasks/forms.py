@@ -4,26 +4,33 @@ from django.contrib.auth.forms import UserCreationForm
 from tasks.models import Task, Worker
 
 
-class TaskUpdateForm(forms.ModelForm):
+class BaseTaskForm:
     class Meta:
+        widgets = {
+            "tags": forms.CheckboxSelectMultiple(),
+            "assignees": forms.CheckboxSelectMultiple(),
+            "deadline": forms.DateInput(attrs={"type": "date"}),
+        }
+
+
+class TaskUpdateForm(BaseTaskForm, forms.ModelForm):
+    class Meta(BaseTaskForm.Meta):
         model = Task
         fields = "__all__"
-        widgets = {
-            "tags": forms.CheckboxSelectMultiple(),
-            "assignees": forms.CheckboxSelectMultiple(),
-            "deadline": forms.DateInput(attrs={"type": "date"}),
-        }
 
 
-class TaskCreateForm(forms.ModelForm):
-    class Meta:
+class TaskCreateForm(BaseTaskForm, forms.ModelForm):
+    class Meta(BaseTaskForm.Meta):
         model = Task
-        exclude = ["is_completed"]
-        widgets = {
-            "tags": forms.CheckboxSelectMultiple(),
-            "assignees": forms.CheckboxSelectMultiple(),
-            "deadline": forms.DateInput(attrs={"type": "date"}),
-        }
+        fields = (
+            "name",
+            "description",
+            "deadline",
+            "priority",
+            "task_type",
+            "tags",
+            "assignees",
+        )
 
 
 class WorkerForm(UserCreationForm):
