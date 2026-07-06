@@ -28,7 +28,7 @@
                   {% csrf_token %}
 
                   {% if form.non_field_errors %}
-                    <div class="alert alert-danger text-white text-xs border-radius-md p-2 mb-3" role="alert">
+                    <div class="alert alert-danger text-xs border-radius-md p-2 mb-3" role="alert" style="color: #ea0606; background-color: #ffeeef; border: 1px solid rgba(234, 6, 6, 0.2);">
                       {% for error in form.non_field_errors %}
                         {{ error }}
                       {% endfor %}
@@ -36,7 +36,9 @@
                   {% endif %}
 
                   <div class="text-xs-custom">
-                    {{ form|crispy }}
+                    {% for field in form %}
+                      {{ field|as_crispy_field }}
+                    {% endfor %}
                   </div>
 
                   <div class="form-check form-switch mt-3">
@@ -100,10 +102,22 @@
     .text-xs-custom .asteriskField {
       display: none !important;
     }
+
     .text-xs-custom .invalid-feedback {
+      display: block !important;
+      color: #ea0606 !important;
       font-size: 0.72rem !important;
-      font-weight: 600;
+      font-weight: 600 !important;
+      margin-top: 0.3rem !important;
+      padding-left: 0.2rem;
     }
+    .text-xs-custom .is-invalid {
+      border-color: #fd5c70 !important;
+    }
+    .text-xs-custom .is-invalid:focus {
+      box-shadow: 0 0 0 2px rgba(253, 92, 112, 0.2) !important;
+    }
+
     .text-xs-custom .form-text {
       font-size: 0.7rem !important;
       color: #8392ab !important;
