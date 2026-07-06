@@ -15,12 +15,12 @@ class TaskBaseForm(forms.ModelForm):
         }
 
 
-class TaskUpdateForm(TaskBaseForm, forms.ModelForm):
+class TaskUpdateForm(TaskBaseForm):
     class Meta(TaskBaseForm.Meta):
         fields = "__all__"
 
 
-class TaskCreateForm(TaskBaseForm, forms.ModelForm):
+class TaskCreateForm(TaskBaseForm):
     class Meta(TaskBaseForm.Meta):
         fields = (
             "name",
