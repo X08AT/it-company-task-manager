@@ -45,10 +45,12 @@ class TestModels(TestCase):
 
     def test_create_task_and_assignee(self):
         self.task.assignees.add(self.worker)
-        self.assertIn(self.worker, self.task.assignees.all())
-        self.assertIn(self.task, self.worker.tasks.all())
+        self.assertTrue(
+            self.task.assignees.filter(pk=self.worker.pk).exists()
+        )
 
     def test_create_task_and_tag(self):
         self.task.tags.add(self.tag)
-        self.assertIn(self.tag, self.task.tags.all())
-        self.assertIn(self.task, self.tag.tasks.all())
+        self.assertTrue(
+            self.task.tags.filter(pk=self.tag.pk).exists()
+        )

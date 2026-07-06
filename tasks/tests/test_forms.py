@@ -7,7 +7,7 @@ from tasks.forms import (WorkerForm,
                          TaskNameSearchForm,
                          WorkerUsernameSearchForm
                          )
-from tasks.models import Position, TaskType, Tag
+from tasks.models import Position, TaskType, Tag, Task
 
 
 class FormTest(TestCase):
@@ -68,10 +68,10 @@ class FormTest(TestCase):
             "name": "Test Task",
             "description": "Test Task Description",
             "deadline": "2026-12-31",
-            "priority": "C_MEDIUM",
+            "priority": Task.Priority.MEDIUM.value,
             "task_type": self.task_type.id,
-            "tags": [self.task_tag.id],
-            "assignees": [self.worker.id],
+            "tags": [self.task_tag.pk],
+            "assignees": [self.worker.pk],
         }
         form = TaskCreateForm(data=form_data)
         self.assertTrue(form.is_valid())

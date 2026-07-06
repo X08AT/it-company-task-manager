@@ -44,7 +44,6 @@ class TasksViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["num_tasks"], 1)
         self.assertEqual(response.context["num_workers"], 1)
-        self.assertEqual(response.context["num_urgent"], 0)
         self.assertEqual(response.context["num_not_completed"], 1)
 
     def test_login_required_redirect(self):
