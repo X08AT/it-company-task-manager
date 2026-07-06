@@ -50,6 +50,18 @@ class WorkerForm(UserCreationForm):
         self.fields["email"].required = True
 
 
+class WorkerUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Worker
+        fields = (
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "position",
+        )
+
+
 class TaskNameSearchForm(forms.Form):
     name = forms.CharField(
         max_length=255,

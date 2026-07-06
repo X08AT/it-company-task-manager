@@ -12,7 +12,7 @@ from tasks.forms import (
     TaskUpdateForm,
     TaskCreateForm,
     TaskNameSearchForm,
-    WorkerUsernameSearchForm,
+    WorkerUsernameSearchForm, WorkerUpdateForm,
 )
 from tasks.models import Task, Worker, Position, TaskType, Tag
 
@@ -181,7 +181,7 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
 
 class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Worker
-    fields = ["username", "first_name", "last_name", "email", "position"]
+    form_class = WorkerUpdateForm
     success_url = reverse_lazy("tasks:worker-list")
 
 
