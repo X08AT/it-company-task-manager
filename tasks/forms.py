@@ -4,8 +4,10 @@ from django.contrib.auth.forms import UserCreationForm
 from tasks.models import Task, Worker
 
 
-class BaseTaskForm:
+class TaskBaseForm(forms.ModelForm):
     class Meta:
+        model = Task
+        fields = "__all__"
         widgets = {
             "tags": forms.CheckboxSelectMultiple(),
             "assignees": forms.CheckboxSelectMultiple(),
@@ -13,15 +15,13 @@ class BaseTaskForm:
         }
 
 
-class TaskUpdateForm(BaseTaskForm, forms.ModelForm):
-    class Meta(BaseTaskForm.Meta):
-        model = Task
+class TaskUpdateForm(TaskBaseForm, forms.ModelForm):
+    class Meta(TaskBaseForm.Meta):
         fields = "__all__"
 
 
-class TaskCreateForm(BaseTaskForm, forms.ModelForm):
-    class Meta(BaseTaskForm.Meta):
-        model = Task
+class TaskCreateForm(TaskBaseForm, forms.ModelForm):
+    class Meta(TaskBaseForm.Meta):
         fields = (
             "name",
             "description",
