@@ -80,6 +80,7 @@ class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
 class TagListView(LoginRequiredMixin, generic.ListView):
     queryset = Tag.objects.annotate(num_tasks=Count("tasks"))
     template_name = "tasks/tag_list.html"
+    context_object_name = "tag_list"
 
 
 class TagCreateView(LoginRequiredMixin, generic.CreateView):
@@ -107,7 +108,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "task_list"
 
     def get_queryset(self):
-        queryset = self.queryset.all()
+        queryset = super().get_queryset()
         form = TaskNameSearchForm(self.request.GET)
         if form.is_valid():
             name = form.cleaned_data.get("name")
@@ -151,7 +152,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "worker_list"
 
     def get_queryset(self):
-        queryset = self.queryset.exclude(is_superuser=True)
+        queryset = super().get_queryset().exclude(is_superuser=True)
         form = WorkerUsernameSearchForm(self.request.GET)
         if form.is_valid():
             username = form.cleaned_data.get("username")
@@ -192,7 +193,7 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
 class ToggleAssignToTaskView(LoginRequiredMixin, View):
     def post(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
-        if request.user in task.assignees.all():
+        if task.assignees.filter(pk=request.user.pk).exists():
             task.assignees.remove(request.user)
         else:
             task.assignees.add(request.user)
