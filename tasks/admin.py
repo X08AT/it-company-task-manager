@@ -1,7 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
 
 from tasks.models import Position, TaskType, Task, Worker, Tag
+
+
+admin.site.unregister(Group)
 
 
 @admin.register(Position)
@@ -32,27 +36,35 @@ class TaskAdmin(admin.ModelAdmin):
         "get_tags",
         "deadline",
         "priority",
-        "get_assignees"
+        "get_assignees",
+        "is_completed",
     ]
+    list_editable = ["deadline", "priority", "is_completed"]
     list_filter = ["deadline", "priority", "task_type", "tags"]
+    list_select_related = ["task_type"]
+    date_hierarchy = "deadline"
 
+    @admin.display(description="Assignees")
     def get_assignees(self, obj):
-        return ", ".join([worker.username for worker in obj.assignees.all()])
-    get_assignees.short_description = "Assignees"
+        return (", ".join(worker.username for worker in obj.assignees.all())
+                or "-")
 
+    @admin.display(description="Tags")
     def get_tags(self, obj):
-        return ", ".join([tag.name for tag in obj.tags.all()])
-    get_tags.short_description = "Tags"
+        return ", ".join(tag.name for tag in obj.tags.all()) or "-"
 
     def get_queryset(self, request):
-        qs = super(TaskAdmin, self).get_queryset(request)
-        return (qs.select_related("task_type").
-                prefetch_related("assignees", "tags"))
+        queryset = super().get_queryset(request)
+        return queryset.prefetch_related("assignees", "tags")
 
 
 @admin.register(Worker)
 class WorkerAdmin(UserAdmin):
-    search_fields = ["username", "position__name"]
+    search_fields = [
+        "username",
+        "email",
+        "position__name",
+    ]
     list_display = [
         "username",
         "position",
@@ -62,6 +74,7 @@ class WorkerAdmin(UserAdmin):
         "is_staff",
     ]
     list_filter = ["position", "is_staff"]
+    list_select_related = ["position"]
     fieldsets = UserAdmin.fieldsets + (("Additional info:",
                                         {"fields": ("position",)}),)
     add_fieldsets = UserAdmin.add_fieldsets + (
@@ -77,7 +90,3 @@ class WorkerAdmin(UserAdmin):
             },
         ),
     )
-
-    def get_queryset(self, request):
-        qs = super(WorkerAdmin, self).get_queryset(request)
-        return qs.select_related("position")
