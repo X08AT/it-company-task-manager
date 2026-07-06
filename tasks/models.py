@@ -25,9 +25,8 @@ class Worker(AbstractUser):
         ordering = ["username"]
 
     def __str__(self):
-        if self.first_name and self.last_name:
-            return f"{self.username} ({self.first_name} {self.last_name})"
-        return f"{self.username}"
+        full_name = self.get_full_name()
+        return f"{self.username} ({full_name})" if full_name else self.username
 
 
 class TaskType(models.Model):
@@ -78,7 +77,7 @@ class Task(models.Model):
     )
 
     class Meta:
-        ordering = ["deadline", "priority"]
+        ordering = ["deadline", "priority", "name"]
 
     def __str__(self):
         return self.name
