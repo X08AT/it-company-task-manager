@@ -20,7 +20,7 @@ from tasks.models import Task, Worker, Position, TaskType, Tag
 @login_required
 def index(request):
     num_tasks = Task.objects.count()
-    num_workers = Worker.objects.count()
+    num_workers = Worker.objects.filter(is_superuser=False).count()
     num_not_completed = Task.objects.filter(is_completed=False).count()
     context = {
         "num_tasks": num_tasks,
