@@ -2,10 +2,11 @@
 {% load static %}
 
 {% block title %} Task Types | Task Manager {% endblock title %}
+{% load static %}
 
 {% block content %}
   <header class="header-2">
-    <div class="page-header section-height-50 relative" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0')">
+    <div class="page-header section-height-50 relative" style="background-image: url({% static 'images/task-types.jpg' %})">
       <span class="mask bg-gradient-dark opacity-4"></span>
 
       <div class="container" style="position: relative; z-index: 2;">

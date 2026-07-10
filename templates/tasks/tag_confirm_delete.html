@@ -1,4 +1,5 @@
 {% extends 'layouts/base-presentation.html' %}
+{% load static %}
 
 {% block title %} Delete Tag | Task Manager {% endblock title %}
 
@@ -9,7 +10,7 @@
     <div class="page-header section-height-85">
       <div>
         <img class="position-absolute fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
-             src="https://plus.unsplash.com/premium_photo-1664392292014-9b4e83e12bb5?q=80&w=755&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+             src="{% static 'images/delete.jpg' %}"
              alt="background">
       </div>
 
