@@ -1,0 +1,66 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {% if object %}Update{% else %}Create{% endif %} Worker | Task Manager
+{% endblock title %}
+
+{% block body_class %} contact-us {% endblock body_class %}
+
+{% block content %}
+<style>
+  .asteriskField {
+    display: none !important;
+  }
+</style>
+
+  <header>
+    <div class="page-header section-height-85">
+      <div>
+        <img class="position-absolute fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
+             src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.1.0&auto=format&fit=crop&w=1000&q=80"
+             alt="background">
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 d-flex justify-content-center flex-column">
+
+            <div class="card d-flex blur justify-content-center p-4 shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+
+              <div class="text-center mb-4">
+                <h3 class="text-gradient text-primary">
+                  {% if object %}Update{% else %}Create{% endif %} Worker
+                </h3>
+                <p class="mb-0 text-sm text-secondary">
+                  {% if object %}Modify profile, assignment, or account credentials.{% else %}Fill in credentials and personal info to onboard a new worker.{% endif %}
+                </p>
+              </div>
+
+              <form role="form" id="worker-form" method="post" autocomplete="off">
+                {% csrf_token %}
+
+                <div class="card-body pb-2 text-start">
+                  {{ form|crispy }}
+
+                  <div class="row mt-4">
+                    <div class="col-md-12 d-flex justify-content-end align-items-center">
+                      <a href="{% url 'tasks:worker-list' %}" class="btn btn-link text-dark text-sm font-weight-bold me-3 mb-0">
+                        Cancel
+                      </a>
+                      <button type="submit" class="btn bg-gradient-primary mb-0 shadow-sm">
+                        <i class="fas fa-save me-2" aria-hidden="true"></i> Save Worker
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock content %}

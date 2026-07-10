@@ -1,0 +1,73 @@
+<footer class="footer pt-5 mt-5 bg-white">
+  <hr class="horizontal dark mb-5">
+  <div class="container">
+    <div class="row g-4 text-start">
+
+      <div class="col-md-4 col-12 mb-4">
+        <div>
+          <h6 class="text-gradient text-primary font-weight-bolder">IT Company Task Manager</h6>
+          <p class="text-xs text-muted mt-2">
+            Streamline your software development sprint iterations, track core components, and organize engineering workloads seamlessly.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-2 col-sm-4 col-4 mb-4 ms-auto">
+        <div>
+          <h6 class="text-gradient text-primary text-sm font-weight-bold">Features</h6>
+          <ul class="flex-column ms-n3 nav">
+            <li class="nav-item">
+              <a class="nav-link text-sm text-secondary py-1 {% if request.resolver_match.url_name == 'index' %}text-primary font-weight-bold{% endif %}" href="{% url 'tasks:index' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-sm text-secondary py-1 {% if request.resolver_match.url_name == 'task-list' %}text-primary font-weight-bold{% endif %}" href="{% url 'tasks:task-list' %}">Task Board</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-sm text-secondary py-1 {% if request.resolver_match.url_name == 'worker-list' %}text-primary font-weight-bold{% endif %}" href="{% url 'tasks:worker-list' %}">Team Members</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-2 col-sm-4 col-4 mb-4">
+        <div>
+          <h6 class="text-gradient text-primary text-sm font-weight-bold">Tech Stack</h6>
+          <ul class="flex-column ms-n3 nav">
+            <li class="nav-item">
+              <a class="nav-link text-sm text-secondary py-1" href="https://www.python.org/" target="_blank" rel="noopener noreferrer">Python</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-sm text-secondary py-1" href="https://www.djangoproject.com/" target="_blank" rel="noopener noreferrer">Django</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-sm text-secondary py-1" href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer">Bootstrap 5</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-2 col-sm-4 col-4 mb-4">
+        <div>
+          <h6 class="text-gradient text-primary text-sm font-weight-bold">Support</h6>
+          <ul class="flex-column ms-n3 nav">
+            <li class="nav-item">
+              <a class="nav-link text-sm text-secondary py-1" href="https://docs.djangoproject.com/" target="_blank" rel="noopener noreferrer">Documentation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-sm text-secondary py-1" href="https://github.com/X08AT/it-company-task-manager" target="_blank" rel="noopener noreferrer">Report a Bug</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-12 mt-4">
+        <div class="text-center border-top pt-4">
+          <p class="text-sm text-secondary my-0">
+            &copy; {% now "Y" %} IT Company Task Manager. All rights reserved. Built by Artem Turchyn.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</footer>

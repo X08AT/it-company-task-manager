@@ -1,0 +1,62 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {% if object %}Update{% else %}Create{% endif %} Tag | Task Manager
+{% endblock title %}
+
+{% block body_class %} contact-us {% endblock body_class %}
+
+{% block content %}
+<style>
+  .asteriskField { display: none !important; }
+  .form-control { border: 1px solid #d2d6da !important; padding: 0.5rem 0.75rem !important; }
+  .form-control:focus { border-color: #5e72e4 !important; box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.2) !important; }
+</style>
+
+  <header>
+    <div class="page-header section-height-85">
+      <div>
+        <img class="position-absolute fixed-top ms-auto w-50 h-100 z-index-0 d-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
+             src="https://images.unsplash.com/photo-1676276375942-0f672b181f6e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+             alt="background" style="object-fit: cover;">
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5 d-flex justify-content-center flex-column">
+            <div class="card d-flex blur justify-content-center p-4 shadow-lg my-sm-0 my-sm-6 mt-8 mb-5 border-0">
+
+              <div class="text-center mb-4">
+                <h3 class="text-gradient text-primary font-weight-bolder">
+                  {% if object %}Update{% else %}Create{% endif %} Tag
+                </h3>
+                <p class="mb-0 text-sm text-secondary">
+                  {% if object %}Change the properties of this task label.{% else %}Create a new tag to label your workflow items.{% endif %}
+                </p>
+              </div>
+
+              <form role="form" id="tag-form" method="post" autocomplete="off">
+                {% csrf_token %}
+                <div class="card-body pb-2 text-start">
+                  {{ form|crispy }}
+                  <div class="row mt-4">
+                    <div class="col-md-12 d-flex justify-content-end align-items-center">
+                      <a href="{% url 'tasks:tag-list' %}" class="btn btn-link text-dark text-xs text-uppercase font-weight-bold me-3 mb-0">
+                        Cancel
+                      </a>
+                      <button type="submit" class="btn bg-gradient-primary mb-0 shadow-sm text-xs text-uppercase">
+                        <i class="fas fa-save me-2" aria-hidden="true"></i> Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock content %}

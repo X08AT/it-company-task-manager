@@ -1,0 +1,183 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load static %}
+
+{% block title %} Task Detail | Task Manager {% endblock title %}
+
+{% block content %}
+  <header class="header-2">
+    <div class="page-header section-height-50 relative" style="background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.2.1&auto=format&fit=crop&w=1950&q=80')">
+      <span class="mask bg-gradient-dark opacity-4"></span>
+
+      <div class="container" style="position: relative; z-index: 2;">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3 font-weight-bolder">{{ task.name }}</h1>
+            <p class="lead text-white mt-3 opacity-9">Detailed task parameters, current executive progress, and lifecycle stage management.</p>
+          </div>
+        </div>
+      </div>
+      <div class="position-absolute w-100 z-index-1 bottom-0">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+          <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+          <g class="moving-waves">
+            <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40)" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+            <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+            <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+            <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95)" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <section class="py-5 bg-white">
+    <div class="container-fluid py-4">
+      <div class="row justify-content-center">
+        <div class="col-12 col-xl-10 mx-auto" style="margin-top: -120px; position: relative; z-index: 3;">
+
+          <div class="row g-4">
+            <div class="col-lg-8 text-start">
+
+              <div class="card shadow-lg p-4 border-radius-xl bg-white mb-4 border-0">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="badge {% if task.is_completed %}bg-gradient-success{% else %}bg-gradient-warning{% endif %} px-3 py-2 border-radius-md text-xs">
+                      {% if task.is_completed %}✅ Completed{% else %}❌ In Progress{% endif %}
+                    </span>
+                  </div>
+
+                  <div class="d-flex align-items-center gap-1">
+                    <a href="{% url 'tasks:task-update' pk=task.id %}" class="btn btn-link text-dark font-weight-bold px-2 py-1 mb-0 text-xs text-uppercase">Update</a>
+                    <span class="text-secondary opacity-4">|</span>
+                    <a href="{% url 'tasks:task-delete' pk=task.id %}" class="btn btn-link text-danger text-gradient font-weight-bold px-2 py-1 mb-0 text-xs text-uppercase">Delete</a>
+                  </div>
+                </div>
+
+                <h2 class="font-weight-bolder text-dark mb-3">{{ task.name }}</h2>
+                <p class="text-secondary text-sm mb-4 bg-gray-100 p-3 border-radius-md font-weight-normal" style="white-space: pre-line; line-height: 1.6; margin-top: 0;">{{ task.description }}</p>
+
+                <div class="mt-2">
+                  <form method="post" action="{% url 'tasks:toggle-assign-task' pk=task.id %}" class="mb-0">
+                    {% csrf_token %}
+                    {% if task in user.tasks.all %}
+                      <button type="submit" class="btn btn-sm bg-gradient-danger w-100 border-radius-md font-weight-bold py-2 mb-0 shadow-sm">
+                        <i class="fas fa-user-minus me-2"></i> Delete me from this task
+                      </button>
+                    {% else %}
+                      <button type="submit" class="btn btn-sm bg-gradient-success w-100 border-radius-md font-weight-bold py-2 mb-0 shadow-sm text-white">
+                        <i class="fas fa-user-plus me-2"></i> Assign me to this task
+                      </button>
+                    {% endif %}
+                  </form>
+                </div>
+              </div>
+
+              <div class="card shadow-lg p-4 border-radius-xl bg-white border-0">
+                <h5 class="font-weight-bolder text-dark mb-3">Assignees</h5>
+                <div class="table-responsive">
+                  <table class="table align-items-center mb-0">
+                    <tbody>
+                      {% for worker in task.assignees.all %}
+                        <tr>
+                          <td class="px-0 border-0 py-2">
+                            <div class="d-flex align-items-center">
+                              <div class="icon icon-shape icon-sm shadow border-radius-md bg-gradient-light text-center me-3 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                <i class="fas fa-user-ninja text-dark text-xs"></i>
+                              </div>
+                              <div class="d-flex flex-column">
+                                <h6 class="mb-0 text-sm font-weight-bold text-dark">
+                                  {{ worker.first_name }} {{ worker.last_name }}
+                                </h6>
+                                <a href="{% url 'tasks:worker-detail' pk=worker.id %}" class="text-xs text-primary font-weight-bold">
+                                  (@{{ worker.username }})
+                                </a>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-end border-0 py-2">
+                            <span class="badge badge-sm bg-gradient-light text-dark font-weight-bold text-uppercase border-radius-md">
+                              {{ worker.position.name|default:"No position" }}
+                            </span>
+                          </td>
+                        </tr>
+                      {% empty %}
+                        <tr>
+                          <td colspan="2" class="text-start py-3 text-sm text-muted border-0 ps-0">
+                            <i class="fas fa-info-circle me-1"></i> No assignees assigned to this task.
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-lg-4 text-start">
+              <div class="card p-4 shadow-lg border-radius-xl h-100 border-0 bg-white">
+                <h5 class="font-weight-bolder mb-4 text-gradient text-primary border-bottom pb-2">Attributes</h5>
+
+                <div class="mb-4">
+                  <label class="text-xs font-weight-bold text-muted text-uppercase mb-1 d-block">Type of task</label>
+                  <div class="d-flex align-items-center">
+                    <span class="badge bg-gradient-primary badge-sm text-xxs font-weight-bold"><i class="fas fa-layer-group me-1"></i> {{ task.task_type.name }}</span>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="text-xs font-weight-bold text-muted text-uppercase mb-1 d-block">Priority</label>
+                  <span class="badge badge-sm
+                    {% if task.priority == 1 or task.priority == 2 %}bg-gradient-danger
+                    {% elif task.priority == 3 %}bg-gradient-warning
+                    {% else %}bg-gradient-secondary{% endif %} px-3 py-1">
+                    {{ task.get_priority_display }}
+                  </span>
+                </div>
+
+                <div class="mb-4">
+                  <label class="text-xs font-weight-bold text-muted text-uppercase mb-1 d-block">Deadline</label>
+                  <div class="d-flex align-items-center">
+                    <span class="text-sm font-weight-bolder {% if not task.is_completed %}text-danger{% else %}text-dark{% endif %}">
+                      <i class="far fa-calendar-alt text-xs me-1"></i> {{ task.deadline|date:"M d, Y"|default:"No limit" }}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="text-xs font-weight-bold text-muted text-uppercase mb-1 d-block">Status</label>
+                  <span class="text-sm font-weight-bold text-dark">
+                    {% if task.is_completed %}✅ Completed{% else %}❌ In Progress{% endif %}
+                  </span>
+                </div>
+
+                <div>
+                  <label class="text-xs font-weight-bold text-muted text-uppercase mb-2 d-block">Tags</label>
+                  <div class="d-flex flex-wrap gap-1">
+                    {% for tag in task.tags.all %}
+                      <span class="badge text-xxs font-weight-bolder px-2 py-1 border-radius-md bg-white"
+                            style="border: 1px solid {% cycle '#5e72e4' '#b80051' '#11cdef' '#fb6340' '#2dce89' %}; color: #344767;">
+                        #{{ tag.name }}
+                      </span>
+                    {% empty %}
+                      <span class="text-xs text-muted font-weight-normal italic">No tags</span>
+                    {% endfor %}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .bg-gray-100 { background-color: #f8f9fa !important; }
+  </style>
+{% endblock content %}
