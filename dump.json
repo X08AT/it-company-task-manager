@@ -1,0 +1,440 @@
+[
+{
+    "model": "tasks.position",
+    "pk": 2,
+    "fields": {
+        "name": "Developer"
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 3,
+    "fields": {
+        "name": "QA"
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 4,
+    "fields": {
+        "name": "Project Manager"
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 5,
+    "fields": {
+        "name": "DevOps"
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$01MlqnESkMXG0d7h35XqVF$QJBBh2RAbGcar3sCtVdvvj4mXklry89UYWFsFpb+XKk=",
+        "last_login": "2026-06-29T12:58:50.371Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@g.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-06-29T12:58:42.300Z",
+        "position": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$UAhm08lB2zYfmG49gejUY9$UCcLQU6u3yBzWp7EZdoWc9iJDwOKdJponlP9zUpCvi0=",
+        "last_login": "2026-06-29T15:23:18.553Z",
+        "is_superuser": false,
+        "username": "a_turchyn",
+        "first_name": "Artem",
+        "last_name": "Turchyn",
+        "email": "a.turchyn@company.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-29T14:57:18.629Z",
+        "position": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$ImskRp04I6hUUe2dnWna6d$oSXvwbEy3i9CrpqetrzrodJOY3uxsguKFlZDqvc8qbE=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "s_kovalenko",
+        "first_name": "Svitlana",
+        "last_name": "Kovalenko",
+        "email": "s.koval@company.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-29T14:57:50.529Z",
+        "position": 4,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$TPIsCBlnAV0sr6M5MWqYrC$R0OadO6qw0DfP+Fhijzv3NhUfPvPKt1W8z0/8y7omRQ=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "m_petrenko",
+        "first_name": "Maksym",
+        "last_name": "Petrenko",
+        "email": "m.petrenko@company.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-29T14:58:17.995Z",
+        "position": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$A1NBrxQbkv8UMheY6inYiU$t/pgeSHnhsz/khiLxihXZUYW2TbxREJLeqPh4kNvfEA=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "i_shevchenko",
+        "first_name": "Ihor",
+        "last_name": "Shevchenko",
+        "email": "i.shev@company.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-29T14:58:40.467Z",
+        "position": 5,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$QYFVmguhkZICx5TTEjGsTG$IKq4QOwInacrNB9UElvtuKhdAncrxq09cRKdjUqavzw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "o_boyko",
+        "first_name": "Olena",
+        "last_name": "Boyko",
+        "email": "o.boyko@company.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-29T14:59:06.416Z",
+        "position": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$jAcLRE5YSSR3XpaKbr2yi8$FMGkyr+iR0qxrCeKXEgQuOgp9qy9MRbuuY1Jo7QvuDU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "d_tkachenko",
+        "first_name": "Dmytro",
+        "last_name": "Tkachenko",
+        "email": "d.tkach@company.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-29T14:59:28.648Z",
+        "position": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$RRkLaFr3gWt5afaDY9iR3F$iCRvEjWfA24eYFPJbTyDZhnbV5khRsyLFH4RJ2+YFko=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "v_moroz",
+        "first_name": "Vitaliy",
+        "last_name": "Moroz",
+        "email": "v.moroz@company.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-06-29T14:59:50.026Z",
+        "position": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 16,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$XrLHXm4sPE7yQxblFQRcm4$91a212cIOjGddGs+Xs5/kXAIspyETEKAPfKx0ovPphs=",
+        "last_login": "2026-07-06T08:14:12.708Z",
+        "is_superuser": true,
+        "username": "Admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-07-06T08:14:09.193Z",
+        "position": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 19,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$kMZu7E0z8fpWJdrbyJSQZD$oHUHF05on3IshqOgElwMCeLX83VvFfY0vRNSMmDTi3k=",
+        "last_login": "2026-07-10T11:56:16.781Z",
+        "is_superuser": false,
+        "username": "at.turchyn",
+        "first_name": "Artem",
+        "last_name": "Turchyn",
+        "email": "t24323@famf.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-07-06T11:39:49.268Z",
+        "position": 5,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 2,
+    "fields": {
+        "name": "Bug"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 3,
+    "fields": {
+        "name": "New feature"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 4,
+    "fields": {
+        "name": "Breaking change"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 5,
+    "fields": {
+        "name": "Refactoring"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 6,
+    "fields": {
+        "name": "QA"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 3,
+    "fields": {
+        "name": "backend"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 4,
+    "fields": {
+        "name": "frontend"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 5,
+    "fields": {
+        "name": "testing"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 6,
+    "fields": {
+        "name": "security"
+    }
+},
+{
+    "model": "tasks.tag",
+    "pk": 7,
+    "fields": {
+        "name": "urgent"
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 2,
+    "fields": {
+        "name": "Add sign-in with Google button",
+        "description": "Integrate Google OAuth2 for quick user authentication on the platform. Add the corresponding button to the Sign In form.",
+        "deadline": "2026-07-05",
+        "is_completed": false,
+        "priority": 2,
+        "task_type": 3,
+        "tags": [
+            3,
+            4
+        ],
+        "assignees": [
+            4
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 3,
+    "fields": {
+        "name": "Fix Dashboard for Vacancies",
+        "description": "Fix the bug causing duplicated charts rendering inside the Recruiter Dashboard upon page reload.",
+        "deadline": "2026-06-30",
+        "is_completed": true,
+        "priority": 1,
+        "task_type": 2,
+        "tags": [
+            4,
+            7
+        ],
+        "assignees": [
+            6,
+            8
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 4,
+    "fields": {
+        "name": "Database Crash Under Load",
+        "description": "Analyze PostgreSQL logs. Optimize slow SQL queries within the service and configure connection pooling.",
+        "deadline": "2026-07-01",
+        "is_completed": false,
+        "priority": 1,
+        "task_type": 2,
+        "tags": [
+            3,
+            7
+        ],
+        "assignees": [
+            7,
+            6
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 5,
+    "fields": {
+        "name": "Migration to New Payment Gateway API Version",
+        "description": "The legacy Stripe API version will be deprecated by the end of the month. Completely rewrite the webhook handling logic to fit the new data schema.",
+        "deadline": "2026-07-12",
+        "is_completed": false,
+        "priority": 2,
+        "task_type": 4,
+        "tags": [
+            3,
+            6
+        ],
+        "assignees": [
+            4
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 6,
+    "fields": {
+        "name": "SQL Queries Optimization & Refactoring in Task Manager",
+        "description": "Replace heavy subqueries with select_related and prefetch_related in Django ORM to speed up the Task Board loading time.",
+        "deadline": "2026-07-20",
+        "is_completed": false,
+        "priority": 3,
+        "task_type": 5,
+        "tags": [
+            3
+        ],
+        "assignees": [
+            6
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 7,
+    "fields": {
+        "name": "Regression Testing Before Release",
+        "description": "Run full manual and automated test suites to ensure the stability of the worker profile functionality.",
+        "deadline": "2026-07-03",
+        "is_completed": true,
+        "priority": 2,
+        "task_type": 6,
+        "tags": [
+            5
+        ],
+        "assignees": [
+            9,
+            8
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 8,
+    "fields": {
+        "name": "Setup Project Docker Deployment Guide",
+        "description": "Write a step-by-step guide in the README.md file for seamless local onboarding of new developers using docker-compose.",
+        "deadline": "2026-07-25",
+        "is_completed": false,
+        "priority": 4,
+        "task_type": 3,
+        "tags": [],
+        "assignees": [
+            5,
+            10
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 9,
+    "fields": {
+        "name": "Configure CI/CD Pipeline in GitHub Actions",
+        "description": "Automate running test suites and linters (Flake8) on every push event to the main repository.",
+        "deadline": "2026-07-10",
+        "is_completed": true,
+        "priority": 3,
+        "task_type": 5,
+        "tags": [
+            5
+        ],
+        "assignees": [
+            7
+        ]
+    }
+}
+]
