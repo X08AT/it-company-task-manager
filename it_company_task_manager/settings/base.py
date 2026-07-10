@@ -9,25 +9,19 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-f#@5n_nwob-d0&+z2ki%rn7bn)w$uxr@_a_i4a)ap6)c#gg-cw'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY",'django-insecure-f#@5n_nwob-d0&+z2ki%rn7bn)w$uxr@_a_i4a)ap6)c#gg-cw')
 
 # Application definition
 
@@ -45,6 +39,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,18 +69,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'it_company_task_manager.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -121,7 +104,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
@@ -137,6 +120,6 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 AUTH_USER_MODEL = "tasks.Worker"
 
-LOGIN_REDIRECT_URL = "tasks:index"
+LOGIN_REDIRECT_URL = "/"
 
 LOGOUT_REDIRECT_URL = "login"
