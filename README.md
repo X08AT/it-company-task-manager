@@ -6,9 +6,16 @@ IT Company Task Manager is a web application for managing tasks, workers, positi
 
 [Live Demo](https://it-company-task-manager-qa9r.onrender.com)
 
+### Test User
+
+```text
+Username: TEST_USER
+Password: ITcompanyTEST2026
+```
+
 ## ⚙️ Installation
 
-Make sure Python 3.14+ is installed.
+Make sure Python 3.14 is installed.
 
 ```shell
 git clone https://github.com/X08AT/it-company-task-manager.git
@@ -35,16 +42,16 @@ Configure the environment variables in `.env`.
 
 * Authentication and authorization
 * Task management (CRUD)
-* Worker management
-* Position management
-* Task type management
-* Tag management
+* Worker management (CRUD)
+* Position management (CRUD)
+* Task type management (CRUD)
+* Tag management (CRUD)
 * Task assignment/unassignment
 * Search and pagination
 * Django Admin interface
 
 ## 🛠️ Tech Stack
-* **Backend:** Python 3.14+, Django 6
+* **Backend:** Python 3.14, Django 6
 * **Frontend:** Bootstrap 5
 * **Database:** PostgreSQL (Production), SQLite (Development)
 * **Deployment:** Render
