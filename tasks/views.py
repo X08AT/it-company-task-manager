@@ -12,7 +12,8 @@ from tasks.forms import (
     TaskUpdateForm,
     TaskCreateForm,
     TaskNameSearchForm,
-    WorkerUsernameSearchForm, WorkerUpdateForm,
+    WorkerUsernameSearchForm,
+    WorkerUpdateForm,
 )
 from tasks.models import Task, Worker, Position, TaskType, Tag
 
@@ -38,13 +39,13 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
 
 class PositionCreateView(LoginRequiredMixin, generic.CreateView):
     model = Position
-    fields = "__all__"
+    fields = ("name",)
     success_url = reverse_lazy("tasks:position-list")
 
 
 class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Position
-    fields = "__all__"
+    fields = ("name",)
     success_url = reverse_lazy("tasks:position-list")
 
 
@@ -61,13 +62,13 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
 
 class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     model = TaskType
-    fields = "__all__"
+    fields = ("name",)
     success_url = reverse_lazy("tasks:task-type-list")
 
 
 class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = TaskType
-    fields = "__all__"
+    fields = ("name",)
     success_url = reverse_lazy("tasks:task-type-list")
 
 
@@ -85,13 +86,13 @@ class TagListView(LoginRequiredMixin, generic.ListView):
 
 class TagCreateView(LoginRequiredMixin, generic.CreateView):
     model = Tag
-    fields = "__all__"
+    fields = ("name",)
     success_url = reverse_lazy("tasks:tag-list")
 
 
 class TagUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Tag
-    fields = "__all__"
+    fields = ("name",)
     success_url = reverse_lazy("tasks:tag-list")
 
 
@@ -101,8 +102,10 @@ class TagDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
-    queryset = (Task.objects.select_related("task_type")
-                .prefetch_related("tags"))
+    queryset = (
+        Task.objects.select_related("task_type")
+        .prefetch_related("tags")
+    )
     paginate_by = 6
     template_name = "tasks/task_list.html"
     context_object_name = "task_list"
@@ -123,8 +126,10 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
-    queryset = (Task.objects.select_related("task_type")
-                .prefetch_related("assignees__position", "tags"))
+    queryset = (
+        Task.objects.select_related("task_type")
+        .prefetch_related("assignees__position", "tags")
+    )
     template_name = "tasks/task_detail.html"
 
 
@@ -167,8 +172,9 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
-    queryset = Worker.objects.select_related("position").prefetch_related(
-        "tasks__task_type"
+    queryset = (
+        Worker.objects.select_related("position")
+        .prefetch_related("tasks__task_type")
     )
     template_name = "tasks/worker_detail.html"
 

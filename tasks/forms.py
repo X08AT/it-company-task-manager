@@ -16,8 +16,7 @@ class TaskBaseForm(forms.ModelForm):
 
 
 class TaskUpdateForm(TaskBaseForm):
-    class Meta(TaskBaseForm.Meta):
-        fields = "__all__"
+    pass
 
 
 class TaskCreateForm(TaskBaseForm):
@@ -40,7 +39,7 @@ class WorkerForm(UserCreationForm):
             "email",
             "first_name",
             "last_name",
-            "position"
+            "position",
         )
 
     def __init__(self, *args, **kwargs):
@@ -65,7 +64,8 @@ class WorkerUpdateForm(forms.ModelForm):
 class TaskNameSearchForm(forms.Form):
     name = forms.CharField(
         max_length=255,
-        required=False, label="",
+        required=False,
+        label="",
         widget=forms.TextInput(
             attrs={"placeholder": "Search by name..."}
         )

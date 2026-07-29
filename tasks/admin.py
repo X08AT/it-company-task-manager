@@ -4,7 +4,6 @@ from django.contrib.auth.models import Group
 
 from tasks.models import Position, TaskType, Task, Worker, Tag
 
-
 admin.site.unregister(Group)
 
 
@@ -40,7 +39,7 @@ class TaskAdmin(admin.ModelAdmin):
         "is_completed",
     ]
     list_editable = ["deadline", "priority", "is_completed"]
-    list_filter = ["deadline", "priority", "task_type", "tags"]
+    list_filter = ["deadline", "priority", "task_type", "tags", "is_completed"]
     list_select_related = ["task_type"]
     date_hierarchy = "deadline"
 
@@ -75,8 +74,9 @@ class WorkerAdmin(UserAdmin):
     ]
     list_filter = ["position", "is_staff"]
     list_select_related = ["position"]
-    fieldsets = UserAdmin.fieldsets + (("Additional info:",
-                                        {"fields": ("position",)}),)
+    fieldsets = UserAdmin.fieldsets + (
+        ("Additional info:", {"fields": ("position",)}),
+    )
     add_fieldsets = UserAdmin.add_fieldsets + (
         (
             "Additional info:",
