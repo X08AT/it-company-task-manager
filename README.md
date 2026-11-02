@@ -34,6 +34,8 @@ cp .env.sample .env
 python manage.py migrate
 python manage.py createsuperuser # Create admin account if needed
 python manage.py runserver
+
+python manage.py test # Run tests
 ```
 
 Configure the environment variables in `.env`.
